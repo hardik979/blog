@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Martel+Sans:wght@200;300;400;600;700;800;900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.fjalla-one-regular {
+  font-family: "Fjalla One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+.martel-sans-light {
+  font-family: "Martel Sans", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+        .background-slider {
+            min-height: 100vh; /* Ensure there's height even before images load */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out; /* Smooth transition */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .background-slider::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 0;
+        }
+        h1 {
+            position: relative;
+            z-index: 1; /* Ensure text is above the overlay */
+            color: white;
+            text-align: center;
+          /* Position text in the middle */
+        }
+        .box{
+        height: 800px;
+        width:800px;
+        background-color: rgb(22, 21, 21);
+        border-radius: 20px;
+        display: flex;
+        
+      
+        background-color: rgba(255, 255, 255, 0.5); 
+        backdrop-filter: blur(10px); /* Blurry background effect */
+    -webkit-backdrop-filter: blur(10px); 
+    }
+    .fin{
+        font-size: 80px;
+        color:  #2c2c2c; /* Charcoal */
+
+        
+       font-family: "Martel Sans", sans-serif;
+    }
+    .mono{
+      
+        margin-left: 150px;
+        
+    }
+    .main{
+        margin-left: 145px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+    }
+    form {
+        margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.5); 
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            width: 500px;
+         
+        }
+
+        input:focus {
+            border-color: #3498db;
+        }
+
+        input::placeholder {
+            color: #777;
+            font-style: italic;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .pass{
+            display: flex;
+        }
+        .password-container {
+  position: relative;
+  display: inline-block;
+}
+
+#password {
+  padding-right: 40px; /* Add some padding for the button space */
+}
+
+#togglePassword {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+        .btn {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            margin-left: 190px;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-slider">
+        <div class="box">
+             
+            <form method="post" action="/user/signup">
+                <div class="mono">
+                 <h1 class="fin"> तीर्थ Trails</h1>
+                 </div>
+                 <div class="main">
+                 <form class="sign-up-form">
+                    <p style="margin-left: 180px; font-size: 20px; color: #2c2c2c; /* Charcoal */;">Get started</p>
+                  <div> <input name="fullname" type="text" placeholder="Name" required></div> 
+                  <div>  <input name="email" type="email" placeholder="Email" required></div> 
+                  <div class="password-container">
+                    <input required name="password" type="password" id="password" placeholder="Enter your password">
+                    <button type="button" id="togglePassword">Show</i></button>
+                  </div>
+                  
+                   <div> <button type="submit" class="btn">Sign Up</button></div> 
+                </form>
+                </div>
+                        
+                    
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            'url("/01.jpg")',
+            'url("/holi.jpg")',
+            'url("/04.jpg")',
+            'url("/05.jpg")',
+            'url("/06.jpg")',
+            'url("/07.jpg")'
+        ];
+
+        let currentImageIndex = 0;
+        const slider = document.querySelector('.background-slider');
+
+        function changeBackgroundImage() {
+            slider.style.backgroundImage = images[currentImageIndex];
+            currentImageIndex = (currentImageIndex + 1) % images.length; // Loop back to first image after last
+        }
+
+        // Initial background image setup
+        slider.style.backgroundImage = images[currentImageIndex];
+
+        // Change image every 3 seconds
+        setInterval(changeBackgroundImage, 3000); // 3000 milliseconds = 3 seconds
+        const password = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", function () {
+  // Toggle the type attribute
+  const type = password.getAttribute("type") === "password" ? "text" : "password";
+  password.setAttribute("type", type);
+
+  // Toggle the button text
+  this.textContent = type === "password" ? "Show" : "Hide";
+});
+
+    </script>
+</body>
+</html>

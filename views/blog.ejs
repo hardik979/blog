@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        background-color: #010101;
+        color: #eee;
+      }
+
+      /* Navbar styling */
+      .navbar {
+        background-color: rgba(0, 0, 0, 0.5); /* Transparent black */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar .logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .navbar .center-links,
+      .navbar .right-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+      }
+
+      .navbar a:hover {
+        color: #ffcc00;
+      }
+
+      /* Main container */
+      .container {
+        margin-top: 80px; /* Space below navbar */
+        padding: 20px;
+        text-align: center;
+      }
+
+      /* Title styling */
+      .heading h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        line-height: 1.2;
+      }
+
+      /* Image styling */
+      .image-column {
+        width: 100%;
+        max-width: 900px;
+        max-height: 600px; /* Set max height for the image */
+        margin: 0 auto 20px auto; /* Center the image and add bottom margin */
+        overflow: hidden;
+        margin-bottom: 50px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      }
+
+      .image-column img {
+        width: 100%;
+        height: auto;
+        max-height: 600px; /* Enforce max height */
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      /* Text Body */
+      .text-column {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      pre {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: white;
+        white-space: pre-wrap; /* Allows pre tag to wrap text properly */
+        font-family: "Poppins", sans-serif;
+      }
+      .comment {
+        width: 600px;
+        border: 2px solid #333;
+        padding: 15px 10px;
+        margin-left: 10px;
+      }
+      .comment h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: white;
+      }
+      textarea {
+        text-decoration: none;
+        font-family: "Poppins", sans-serif;
+        color: white;
+        height: 20px;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid #aaa;
+        background-color: transparent;
+        margin-bottom: 10px;
+        resize: none;
+        outline: none;
+        transition: 0.5s;
+      }
+
+      button {
+        padding: 10px 15px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color, ease-in-out, 1s;
+      }
+
+      button:hover {
+        background-color: rgba(36, 196, 36, 0.5);
+      }
+      .comment-section {
+        background-color: rgba(15, 15, 15, 0.8);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      /* Responsive design for smaller screens */
+      @media (max-width: 768px) {
+        .heading h1 {
+          font-size: 2rem;
+        }
+
+        pre {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo">TIRTH TRAILS</div>
+      <% if (locals.user) { %>
+      <div class="center-links">
+        <a href="http://localhost:8001">Home</a>
+        <a href="/blog/add-new">Add Blog</a>
+        <a href="#">Contact Us</a>
+        <a href="/user/logout">Log out</a>
+      </div>
+      <% } else { %>
+      <div class="center-links">
+        <a href="http://localhost:8001/user/signin">SignIn</a>
+        <a href="http://localhost:8001/user/signup">Create account</a>
+      </div>
+      <% } %>
+      <div class="right-links">
+        <a><i class="fa-brands fa-instagram"></i></a>
+        <a><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Title -->
+      <div class="heading">
+        <h1><%= blog.title %></h1>
+      </div>
+
+      <!-- Image Column -->
+      <div class="image-column">
+        <img src="<%= blog.coverImageURL %>" alt="Holy Place" />
+      </div>
+
+      <!-- Text Column -->
+      <div class="text-column">
+        <pre><%= blog.body %></pre>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-left: 10px">
+        Blog by - <%= blog.createdBy.fullname %>
+      </h4>
+    </div>
+    <% if (locals.user) { %>
+    <div class="comments">
+      <h2>Leave a Comment</h2>
+      <form action="/blog/comment/<%= blog._id %>" method="post">
+        <textarea name="content" placeholder="Add Your Comment"></textarea>
+        <div class="btn">
+          <button>Submit</button>
+        </div>
+      </form>
+    </div>
+    <% } %>
+    <div>
+      <h3>Comments (<%= comments.length %>):</h3>
+      <% comments.forEach(comment => { %>
+      <div class="comment-section">
+        <p style="font-family: 'Poppins', sans-serif">
+          <%= comment.createdBy.fullname %> : <%= comment.content %>
+        </p>
+      </div>
+
+      <% }) %>
+    </div>
+  </body>
+</html>

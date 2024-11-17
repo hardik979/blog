@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Add Blog</title>
+    <style>
+      .oswald {
+        font-family: "Oswald", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 200;
+        font-style: normal;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: rgba(0, 0, 0, 0.2);
+        background-image: url(/newbg.jpg);
+        background-size: cover;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: RGBA(0, 0, 0, 0.4);
+      }
+
+      .naam {
+        font-size: 24px;
+        margin: 0;
+        font-family: "Oswald", sans-serif;
+        color: white;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .dropdown {
+        position: relative;
+      }
+
+      /* Hide the dropdown menu by default */
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%; /* Below the main dropdown link */
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 10px 0;
+        min-width: 150px;
+        z-index: 1;
+      }
+
+      /* Style dropdown items */
+      .dropdown-menu a {
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: block;
+      }
+
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      /* Optionally: Show dropdown on click instead of hover */
+      .dropdown-toggle {
+        cursor: pointer;
+      }
+
+      /* Add transition for a smooth dropdown effect */
+      .dropdown-menu {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+      }
+      .nav-links a:nth-child(4)::after {
+        content: "";
+        height: 70%;
+        width: 1px;
+        background-color: white;
+        position: absolute;
+        top: 15%;
+        right: -15px;
+        margin-right: 6px;
+        margin-left: 6px;
+      }
+      .nav-links a {
+        margin-right: 20px;
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+      }
+
+      .nav-links a:nth-child(4) {
+        position: relative;
+      }
+
+      .nav-links a:nth-child(4)::after {
+        content: "";
+        height: 70%;
+        width: 1px;
+
+        position: absolute;
+        top: 15%;
+        right: -15px;
+        margin-right: 6px;
+        margin-left: 6px;
+      }
+
+      .nav-links .x,
+      .nav-links .insta {
+        font-size: 20px;
+        color: white;
+      }
+      .transparent-box {
+        background-color: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px;
+        color: white;
+        height: 800px;
+        font-family: "Oswald", sans-serif;
+      }
+      .input-container {
+        margin-top: 20px; /* Space above the input */
+      }
+
+      .input-label {
+        display: block; /* Label takes the full width */
+        color: white; /* Label text color */
+        margin-bottom: 5px; /* Space below the label */
+        font-size: 30px;
+      }
+
+      .input-field,
+      .textarea-field,
+      .file-input {
+        width: 100%; /* Full width of the container */
+        padding: 10px; /* Space inside the inputs */
+        border: none; /* No border */
+        border-radius: 4px; /* Rounded corners */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.2
+        ); /* Light transparent background */
+        color: white; /* Text color */
+        font-size: 16px; /* Font size */
+      }
+
+      .textarea-field {
+        height: 150px; /* Set a height for the textarea */
+      }
+
+      .file-input {
+        padding: 0; /* Remove padding for file input */
+        background-color: transparent; /* Make background transparent */
+      }
+
+      .submit-button {
+        margin-top: 35px; /* Space above the button */
+        padding: 10px 20px; /* Space inside the button */
+        border: none; /* No border */
+        border-radius: 4px; /* Rounded corners */
+        background-color: #4caf50; /* Green background */
+        color: white; /* Text color */
+        font-size: 16px; /* Font size */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
+        margin-left: 890px;
+      }
+
+      /* Change background color on hover */
+      .submit-button:hover {
+        background-color: #45a049; /* Darker green on hover */
+      }
+      .custom-file-input {
+        position: relative; /* Position relative for the label */
+      }
+
+      .file-input {
+        position: absolute; /* Position absolute to cover the label */
+        top: 0;
+        left: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        opacity: 0; /* Hide the actual input */
+        cursor: pointer; /* Pointer cursor for better UX */
+      }
+
+      .file-label {
+        display: inline-block; /* Make the label an inline-block element */
+        padding: 10px 20px; /* Add padding for the label */
+        border: 1px solid rgba(255, 255, 255, 0.5); /* Border */
+        border-radius: 4px; /* Rounded corners */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.2
+        ); /* Light transparent background */
+        color: white; /* Text color */
+        text-align: center; /* Center the text */
+        cursor: pointer; /* Pointer cursor for better UX */
+        transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+      }
+
+      /* Change background and border color on hover */
+      .file-label:hover {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.3
+        ); /* Lighter background on hover */
+        border-color: rgba(255, 255, 255, 1); /* Change border color on hover */
+      }
+
+      .file-name {
+        display: block; /* Make it a block element */
+        margin-top: 10px; /* Space above the file name */
+        color: white; /* Text color */
+        font-size: 14px; /* Font size */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1 class="naam">तीर्थ TRAILS</h1>
+      <div class="nav-links">
+        <% if (locals.user) { %>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle"
+            ><i class="fa-solid fa-user"></i
+          ></a>
+          <div class="dropdown-menu">
+            <a href="/user/logout">Log out</a>
+            <a>Add blogs</a>
+            <a href="#">Destinations</a>
+            <a href="#">Help</a>
+            <a href="#">About us</a>
+          </div>
+
+          <% } else{%>
+          <a href="http://localhost:8003/user/signin">SignIn</a>
+          <a href="http://localhost:8003/user/signup">Create account</a>
+
+          <% }%>
+          <a class="x"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="insta"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="transparent-box">
+      <h1 style="margin-left: 800px">Tell Others Your Story</h1>
+      <form action="/blog" method="post" enctype="multipart/form-data">
+        <div class="input-container">
+          <label for="title" class="input-label">Title:</label>
+          <input
+            required
+            name="title"
+            type="text"
+            id="title"
+            class="input-field"
+            placeholder="Enter the title here..."
+          />
+        </div>
+
+        <div class="input-container">
+          <label for="content" class="input-label">Content:</label>
+          <textarea
+            required
+            name="body"
+            id="content"
+            class="textarea-field"
+            placeholder="Write your content here..."
+          ></textarea>
+        </div>
+
+        <div class="input-container">
+          <label for="coverImage" class="input-label">Cover Image:</label>
+          <div class="custom-file-input">
+            <input
+              required
+              type="file"
+              id="coverImage"
+              name="coverImage"
+              class="file-input"
+              aria-describedby="coverImage"
+              accept="image/*"
+              onchange="updateFileName()"
+            />
+            <label class="file-label">Choose a cover image</label>
+            <span id="fileName" class="file-name">No file chosen</span>
+          </div>
+        </div>
+
+        <button class="submit-button" type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      function updateFileName() {
+        const fileInput = document.getElementById("coverImage");
+        const fileNameDisplay = document.getElementById("fileName");
+        const fileName = fileInput.files[0]
+          ? fileInput.files[0].name
+          : "No file chosen";
+        fileNameDisplay.textContent = fileName;
+      }
+    </script>
+  </body>
+</html>

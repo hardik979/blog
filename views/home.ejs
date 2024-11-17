@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIRTH TRAILS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      body {
+        font-family: Poppins;
+        margin: 0;
+        background-color: #010101;
+        color: #eee;
+      }
+      svg {
+        width: 25px;
+      }
+      header {
+        width: 1200px;
+        max-width: 90%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 50px 1fr 50px;
+        grid-template-rows: 50px;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 100;
+      }
+      header .logo {
+        font-weight: bold;
+      }
+      header .menu {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        font-weight: 500;
+      }
+      /* css slider */
+      .slider {
+        height: 100vh;
+        margin-top: -50px;
+        position: relative;
+      }
+      .slider .list .item {
+        position: absolute;
+        inset: 0 0 0 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: 0.5s;
+      }
+      .slider .list .item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .slider .list .item::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-image: linear-gradient(to top, #000 40%, transparent);
+      }
+      .slider .list .item .content {
+        position: absolute;
+        left: 10%;
+        top: 20%;
+        width: 500px;
+        max-width: 80%;
+        z-index: 1;
+      }
+      .slider .list .item .content p:nth-child(1) {
+        text-transform: uppercase;
+        letter-spacing: 10px;
+      }
+      .slider .list .item .content h2 {
+        font-size: 100px;
+        margin: 0;
+      }
+      .slider .list .item.active {
+        opacity: 1;
+        z-index: 10;
+      }
+      @keyframes showContent {
+        to {
+          transform: translateY(0);
+          filter: blur(0);
+          opacity: 1;
+        }
+      }
+      .slider .list .item.active p:nth-child(1),
+      .slider .list .item.active h2,
+      .slider .list .item.active p:nth-child(3) {
+        transform: translateY(30px);
+        filter: blur(20px);
+        opacity: 0;
+        animation: showContent 0.5s 0.7s ease-in-out 1 forwards;
+      }
+      .slider .list .item.active h2 {
+        animation-delay: 1s;
+      }
+      .slider .list .item.active p:nth-child(3) {
+        animation-duration: 1.3s;
+      }
+      .arrows {
+        position: absolute;
+        top: 30%;
+        right: 50px;
+        z-index: 100;
+      }
+      .arrows button {
+        background-color: #eee5;
+        border: none;
+        font-family: monospace;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        font-size: x-large;
+        color: #eee;
+        transition: 0.5s;
+      }
+      .arrows button:hover {
+        background-color: #eee;
+        color: black;
+      }
+      .thumbnail {
+        position: absolute;
+        bottom: 50px;
+        z-index: 11;
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        height: 250px;
+        padding: 0 50px;
+        box-sizing: border-box;
+        overflow: auto;
+        justify-content: center;
+      }
+      .thumbnail::-webkit-scrollbar {
+        width: 0;
+      }
+      .thumbnail .item {
+        width: 150px;
+        height: 220px;
+        filter: brightness(0.5);
+        transition: 0.5s;
+        flex-shrink: 0;
+      }
+      .thumbnail .item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .thumbnail .item.active {
+        filter: brightness(1.5);
+      }
+      .thumbnail .item .content {
+        position: absolute;
+        inset: auto 10px 10px 10px;
+      }
+      @media screen and (max-width: 678px) {
+        .thumbnail {
+          justify-content: start;
+        }
+        .slider .list .item .content h2 {
+          font-size: 60px;
+        }
+        .arrows {
+          top: 10%;
+        }
+      }
+      .navbar {
+        background-color: rgba(0, 0, 0, 0.5); /* Transparent black */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      /* Logo Styling */
+      .navbar .logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      /* Center Links Styling */
+      .navbar .center-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      /* Right-Side Links Styling */
+      .navbar .right-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      /* Link Styling */
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+      }
+
+      /* Hover Effect */
+      .navbar a:hover {
+        color: #ffcc00;
+      }
+
+      /* Space for the fixed navbar */
+      .content {
+        padding-top: 70px;
+      }
+
+      .blogcontainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 50px 0;
+      }
+
+      .card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4);
+        overflow: hidden;
+
+        text-align: center;
+        margin: 5px;
+      }
+
+      .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+
+      .card-title {
+        font-family: "Fjalla One", sans-serif;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .card-actions {
+        margin-top: 10px;
+      }
+
+      .btn.read-more {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      .btn.read-more:hover {
+        background-color: #218838;
+      }
+      .trending-header {
+        display: flex;
+        justify-content: center; /* Centers the text horizontally */
+        margin-bottom: 20px; /* Optional: adds space below the heading */
+        margin-top: 20px;
+      }
+
+      .trending-header h1 {
+        font-size: 2rem; /* Adjust font size if necessary */
+        color: #fff; /* Change color if needed */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo">TIRTH TRAILS</div>
+      <% if (locals.user) { %>
+      <div class="center-links">
+        <a href="http://localhost:8001">Home</a>
+        <a href="/blog/add-new">Add Blog</a>
+        <a href="#">Contact Us</a>
+        <a href="/user/logout">Log out</a>
+      </div>
+      <% } else { %>
+      <div class="center-links">
+        <a href="http://localhost:8001/user/signin">SignIn</a>
+        <a href="http://localhost:8001/user/signup">Create account</a>
+      </div>
+      <% } %>
+      <div class="right-links">
+        <a><i class="fa-brands fa-instagram"></i></a>
+        <a><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+
+    <!-- slider -->
+
+    <div class="slider">
+      <!-- list Items -->
+      <div class="list">
+        <div class="item active">
+          <img src="/banarasnew.jpg" />
+          <div class="content">
+            <p>Must visit</p>
+            <h2>Banaras</h2>
+            <p>
+              In the Ganges’ waves lie stories of ancient lore, Along the ghats,
+              souls seek their essence and more. In the temple’s echoes, the
+              shadow of divinity sways, Banaras cradles the magic of love and
+              devotion's ways.
+            </p>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/vrandavan.jpg" />
+          <div class="content">
+            <p>Must visit</p>
+            <h2>Vrandavan</h2>
+            <p>
+              In Vrindavan’s gardens, the shade of love resides, Where Radha and
+              Krishna's playful charm forever abides. In the dust of their feet,
+              the fragrance of devotion swells, With flutes of the gopis, each
+              moment of magic dwells.
+            </p>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/orcha.jpg" />
+          <div class="content">
+            <p>Must visit</p>
+            <h2>Orcha</h2>
+            <p>
+              In Orchha's embrace, where temples touch the sky, Echoes of kings
+              and legends never die, The Betwa flows, as time drifts gently by.
+            </p>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/baba.jpg" />
+          <div class="content">
+            <p>Must visit</p>
+            <h2>Kedarnath</h2>
+            <p>
+              Beneath Kedarnath's towering peaks so high, Where whispers of the
+              gods meet the endless sky, The temple stands, in faith that will
+              never die
+            </p>
+          </div>
+        </div>
+        <div class="item">
+          <img src="/rishi.jpg" />
+          <div class="content">
+            <p>Must visit</p>
+            <h2>Rishikesh</h2>
+            <p>
+              In Rishikesh, where rivers and spirits align, The Ganga's song
+              flows with a rhythm divine, A sacred path where peace and wisdom
+              shine.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- button arrows -->
+      <div class="arrows">
+        <button id="prev"><</button>
+        <button id="next">></button>
+      </div>
+      <!-- thumbnail -->
+      <div class="thumbnail">
+        <div class="item active">
+          <img src="/picc5.jpg" />
+          <div class="content">Manikarnika Ghat</div>
+        </div>
+        <div class="item">
+          <img src="/picc4.jpg" />
+          <div class="content">Ganga Arti</div>
+        </div>
+        <div class="item">
+          <img src="/orcha.jpg" />
+          <div class="content">Orcha</div>
+        </div>
+        <div class="item">
+          <img src="/baba.jpg" />
+          <div class="content">Kedarnath</div>
+        </div>
+        <div class="item">
+          <img src="/rishi.jpg" />
+          <div class="content">Rishikesh</div>
+        </div>
+      </div>
+    </div>
+    <div class="trending-header">
+      <h1>Trending Blogs</h1>
+    </div>
+    <div class="blogcontainer">
+      <% blogs.forEach(blog => { %>
+      <div class="card" style="width: 18rem; margin-top: 10px">
+        <img
+          src="<%= blog.coverImageURL %>"
+          alt="Blog Cover Image"
+          class="card-image"
+        />
+        <div class="card-content">
+          <h2 class="card-title"><%= blog.title %></h2>
+          <div class="card-actions">
+            <a href="/blog/<%= blog._id %>" class="btn read-more">Read More</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+
+    <script>
+      let items = document.querySelectorAll(".slider .list .item");
+      let next = document.getElementById("next");
+      let prev = document.getElementById("prev");
+      let thumbnails = document.querySelectorAll(".thumbnail .item");
+
+      // config param
+      let countItem = items.length;
+      let itemActive = 0;
+      // event next click
+      next.onclick = function () {
+        itemActive = itemActive + 1;
+        if (itemActive >= countItem) {
+          itemActive = 0;
+        }
+        showSlider();
+      };
+      //event prev click
+      prev.onclick = function () {
+        itemActive = itemActive - 1;
+        if (itemActive < 0) {
+          itemActive = countItem - 1;
+        }
+        showSlider();
+      };
+      // auto run slider
+      let refreshInterval = setInterval(() => {
+        next.click();
+      }, 5000);
+      function showSlider() {
+        // remove item active old
+        let itemActiveOld = document.querySelector(
+          ".slider .list .item.active"
+        );
+        let thumbnailActiveOld = document.querySelector(
+          ".thumbnail .item.active"
+        );
+        itemActiveOld.classList.remove("active");
+        thumbnailActiveOld.classList.remove("active");
+
+        // active new item
+        items[itemActive].classList.add("active");
+        thumbnails[itemActive].classList.add("active");
+        setPositionThumbnail();
+
+        // clear auto time run slider
+        clearInterval(refreshInterval);
+        refreshInterval = setInterval(() => {
+          next.click();
+        }, 5000);
+      }
+      function setPositionThumbnail() {
+        let thumbnailActive = document.querySelector(".thumbnail .item.active");
+        let rect = thumbnailActive.getBoundingClientRect();
+        if (rect.left < 0 || rect.right > window.innerWidth) {
+          thumbnailActive.scrollIntoView({
+            behavior: "smooth",
+            inline: "nearest",
+          });
+        }
+      }
+
+      // click thumbnail
+      thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener("click", () => {
+          itemActive = index;
+          showSlider();
+        });
+      });
+    </script>
+  </body>
+</html>
